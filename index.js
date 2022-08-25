@@ -4,6 +4,12 @@ const app = express();
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');                       //used to call layouts
 const db = require('./config/mongoose');
+//used for session cookie
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal =require('./config/passport-local-strategy');
+const { default: mongoose } = require('mongoose');
+const MongoStore = require("connect-mongo");
 
 
 app.use(express.urlencoded());
@@ -18,12 +24,50 @@ app.set('layout extractScripts' , true);
 
 
 
-//use express router
-app.use('/' , require('./routes/index'));
 
 //set up the view engine
 app.set('view engine','ejs');
 app.set('views' , './views');
+
+
+//MongoStore is used to store the seesion cookie in the DB.
+app.use(session({
+    name: 'codeial',
+    //change the secret before deployment in production mode
+    secret : 'blahsomething',
+    saveUninitialized: false ,                                                //prevents to save extraa data in cookies
+    resave : false,
+    cookie:{                                                                 // automatic cooking expires time
+       maxAge: (1000*60*60)
+    },
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://127.0.0.1/test-app',                            //urlto mongo db
+        autoRemove: 'interval',
+        autoRemoveInterval: 10 // In minutes. Default
+      })
+    
+    // store: new MongoStore(
+    //     {
+    //         mongooseConnection: db,
+    //         autoRemove: 'disabled'
+    //     },
+    //     function (error)
+    //     {
+    //         console.log(err || 'connect-mongo setup is working fine');
+    //     }
+    // ), 
+
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.set(passport.setAuthenticatedUser);
+
+
+
+//use express router
+app.use('/' , require('./routes/index'));
 
 
 
