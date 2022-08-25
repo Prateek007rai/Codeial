@@ -10,6 +10,16 @@ const passport = require('passport');
 const passportLocal =require('./config/passport-local-strategy');
 const { default: mongoose } = require('mongoose');
 const MongoStore = require("connect-mongo");
+const sassMiddleware = require('node-sass-middleware');
+
+
+app.use(sassMiddleware({
+     src: './assets/scss',
+     dest : './assets/css',
+     debug: true,
+     outputStyle: 'expanded',
+     prefix: '/css'                                                  //css folder of assets
+}));
 
 
 app.use(express.urlencoded());
@@ -43,19 +53,9 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: 'mongodb://127.0.0.1/test-app',                            //urlto mongo db
         autoRemove: 'interval',
-        autoRemoveInterval: 10 // In minutes. Default
+        // autoRemove: 'disabled',
+        autoRemoveInterval: 10 ,                     // In minutes. Default
       })
-    
-    // store: new MongoStore(
-    //     {
-    //         mongooseConnection: db,
-    //         autoRemove: 'disabled'
-    //     },
-    //     function (error)
-    //     {
-    //         console.log(err || 'connect-mongo setup is working fine');
-    //     }
-    // ), 
 
 }));
 
