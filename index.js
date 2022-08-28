@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
-const port = 8000;
+const port = 8080;
 const expressLayouts = require('express-ejs-layouts');                       //used to call layouts
 const db = require('./config/mongoose');
 //used for session cookie
@@ -48,10 +48,10 @@ app.use(session({
     saveUninitialized: false ,                                                //prevents to save extraa data in cookies
     resave : false,
     cookie:{                                                                 // automatic cooking expires time
-       maxAge: (1000*60*60)
+       maxAge: (1000*60*100)
     },
     store: MongoStore.create({
-        mongoUrl: 'mongodb://127.0.0.1/test-app',                            //urlto mongo db
+        mongoUrl: 'mongodb://127.0.0.1/test-app',                            //url to mongo db
         autoRemove: 'interval',
         // autoRemove: 'disabled',
         autoRemoveInterval: 10 ,                     // In minutes. Default
@@ -61,14 +61,12 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.set(passport.setAuthenticatedUser);
+app.use(passport.setAuthenticatedUser);
 
 
 
 //use express router
 app.use('/' , require('./routes/index'));
-
 
 
 app.listen(port , function(err){

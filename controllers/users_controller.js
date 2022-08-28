@@ -2,22 +2,27 @@ const User =require('../models/user');
 
 module.exports.profile = function(req ,res){
 
-    if(req.cookies.user_id){
-        User.findById(req.cookies.user_id , function(err , user){
-            if(err){console.log('error during profile view'); return;}
-            if(user){
-                return res.render('user_profile',{
-                    title: "User Profile",
-                    user: user
-                });
-            }
-            return res.redirect('/users/Sign-In');
-        })
+    // if(req.cookies.user_id){
+    //     User.findById(req.cookies.user_id , function(err , user){
+    //         if(err){console.log('error during profile view'); return;}
+    //         if(user){
+    //             return res.render('user_profile',{
+    //                 title: "User Profile",
+    //                 user: user
+    //             });
+                
+    //         }
+    //         return res.redirect('/users/Sign-In');
+    //     })
 
-    }else{
-        return res.redirect('/users/Sign-In');
-    }
+    // }else{
+    //     return res.redirect('/users/Sign-In');
+    // }
     
+    return res.render('user_profile', {
+        title: 'User Profile'
+    })
+
 }
 
  //render the sign Up page
