@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
 
 //module.exports.action_name = function(req ,res){}
@@ -24,14 +25,23 @@ module.exports.home = function(req , res){
 
 
     //populate all the details of user for each posts    .. and extract name only in home.ejs file
-    Post.find({}).populate('user').exec(function(err , posts){
-        
-        return res.render('home',{
-            title: "Codieal | Home",
-            posts: posts                                                    // this is added for using for loop in home.ejs
+    Post.find({})
+    .populate('user')
+    .populate({
+        path: 'comments',
+        populate: {
+            path: 'user'
+        }
+    })
+    .exec(function(err, posts){
+        User.find({} , function(err , users){
 
-        }) 
-    });
+            return res.render('home', {
+                title: "Codeial | Home",
+                posts:  posts,
+                all_users: users
+            });
+        })
 
-    
+    });    
 };
