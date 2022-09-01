@@ -1,6 +1,8 @@
 //require post schema
 const Post = require('../models/post');
+
 const Comment = require('../models/comment');
+
 
 
 
@@ -14,6 +16,7 @@ module.exports.create = function(req ,res){
           return res.redirect('back');
 
      });
+
 }
 
 
@@ -31,4 +34,5 @@ module.exports.destroy = function(req , res){
                return res.redirect('back');
           }
      })
+
 }
