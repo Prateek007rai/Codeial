@@ -1,8 +1,4 @@
 const mongoose = require('mongoose');
-<<<<<<< HEAD
-
-=======
->>>>>>> a3515b9c67d5983fdf8154ec3d726d71c1af0e9c
 
 const postSchema = new mongoose.Schema({
     content: {
@@ -25,10 +21,6 @@ const postSchema = new mongoose.Schema({
     timestamps: true
 });
 
-<<<<<<< HEAD
-const Post = mongoose.model('Post', postSchema);
-=======
-const Post = mongoose.model('Post' , postSchema);
 
->>>>>>> a3515b9c67d5983fdf8154ec3d726d71c1af0e9c
+const Post = mongoose.model('Post', postSchema);
 module.exports = Post;

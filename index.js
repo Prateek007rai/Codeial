@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
-const port = 8000;
+const port = 8080;
 const expressLayouts = require('express-ejs-layouts');                       //used to call layouts
 const db = require('./config/mongoose');
 //used for session cookie
@@ -11,6 +11,8 @@ const passportLocal =require('./config/passport-local-strategy');
 const { default: mongoose } = require('mongoose');
 const MongoStore = require("connect-mongo");
 const sassMiddleware = require('node-sass-middleware');
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 
 app.use(sassMiddleware({
@@ -27,6 +29,10 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 app.use(express.static('./assets'));                                //it is used to search all static css and js files in assets folder
+
+// make the uploads path available to the browser
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
 app.use(expressLayouts);
                                                                        
 app.set('layout extractStyles' , true);                             //extract the style and script from Sub-pages to the layout
@@ -64,6 +70,8 @@ app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 
 
+app.use(flash());
+app.use(customMware.setFlash);
 
 //use express router
 app.use('/' , require('./routes/index'));
