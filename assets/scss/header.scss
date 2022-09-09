@@ -1,0 +1,33 @@
+header{
+    
+    width: 100vw;
+    height: 10vh;
+    color: white;
+    background-color: rgb(49, 49, 205);
+    box-shadow: 0px 2px 1px 0.5px lightgray;
+
+    display: flex;
+    justify-content: space-between;
+    h1{
+       font-size: 50px;
+       font-family:  serif;
+       margin-left: 5rem;
+       padding-top: 0.5rem;
+    }
+    ul{
+        display: flex;
+        li{
+            margin: auto;
+            margin-right: 6rem;
+            list-style: none;
+            font-size: 1.5rem;
+            font-weight: 530;
+            a{
+                text-decoration: none;
+                color: white;
+                
+            }
+        }
+    }
+    
+}

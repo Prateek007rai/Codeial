@@ -7,9 +7,38 @@
   padding: 10px;
 }
 
+#home-container #feed-posts h4 {
+  font-size: 30px;
+}
+
+#home-container #feed-posts form {
+  margin-bottom: 2rem;
+}
+
+#home-container #feed-posts form textarea {
+  outline-style: double;
+  background-color: #d2eff8;
+}
+
 #home-container #user-friends {
   width: 30%;
   padding: 20px;
   border-left: 1px solid lightgrey;
   height: 100vh;
+}
+
+#home-container #user-friends h1 {
+  font-size: 2.5rem;
+  text-decoration: underline;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+#home-container #user-friends p {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+#home-container #user-friends p a {
+  text-decoration: none;
 }
