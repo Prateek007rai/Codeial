@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+const { index } = require('../controllers/api/v1/posts_api');
 
 //connect to the database
 mongoose.connect('mongodb://127.0.0.1/codeial_development');
+
 
 // Acquire the connection (to check if it successful)
 const db = mongoose.connection;
