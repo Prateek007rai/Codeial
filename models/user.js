@@ -6,21 +6,28 @@ const AVATAR_PATH = path.join('/uploads/users/avatars');
 
 const userSchema = new mongoose.Schema({
     email: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
+      unique: true
     },
     password: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     avatar : {
-        type: String
-    }
+      type: String
+    },
+    friendships: [
+      { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Friendship' 
+      }
+    ]
+
 }
    ,{
         timestamps: true                                       // this will manage the Created time in DB.

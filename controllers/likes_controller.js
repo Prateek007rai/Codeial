@@ -19,7 +19,7 @@ module.exports.toggleLike = async function(req , res){
 
 
         //checks whether user liked it already or not
-        let existingLike = await like.findOne({
+        let existingLike = await Like.findOne({
             likeable: req.query.id,
             onModel: req.query.type,
             user: req.user._id
