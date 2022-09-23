@@ -1,7 +1,9 @@
+
 class ChatEngine{
     constructor(chatBoxId, userEmail){
         this.chatBox = $(`#${chatBoxId}`);
         this.userEmail = userEmail;
+
 
         console.log('--------------------',userEmail);
 
