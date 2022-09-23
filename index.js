@@ -1,6 +1,10 @@
+const env = require('./config/envirnoment');
 const express = require('express');
+
+const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();
+require('./config/view-helpers')(app);
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');                       //used to call layouts
 const db = require('./config/mongoose');
@@ -17,23 +21,47 @@ const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 
 
-app.use(sassMiddleware({
-     src: './assets/scss',
-     dest : './assets/css',
-     debug: true,
-     outputStyle: 'expanded',
-     prefix: '/css'                                                  //css folder of assets
-}));
+// setup the chat server to be used with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat server is listening on port 5000');
+
+const path = require('path');
 
 
-app.use(express.urlencoded());
+// if(env.name == 'development'){
+//     app.use(sassMiddleware({
+//         src: path.join(__dirname , env.asset_path , '/scss'),
+//         dest : path.join(__dirname , env.asset_path , '/css'),
+//         debug: true,
+//         outputStyle: 'expanded',
+//         prefix: '/css'                                                  //css folder of assets
+//    }));
+// }
+
+if(env.name == 'development'){
+    app.use(sassMiddleware({
+        src: './assets/scss',
+        dest: './assets/css',
+        prefix: '/css'
+    }));
+}
+    
+
+
+app.use(logger(env.morgan.mode, env.morgan.options));
+
+app.use(express.urlencoded({extended:false}));
 
 app.use(cookieParser());
 
-app.use(express.static('./assets'));                                //it is used to search all static css and js files in assets folder
+app.use(express.static(env.asset_path));                                //it is used to search all static css and js files in assets folder
 
 // make the uploads path available to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
+
+
 
 app.use(expressLayouts);
                                                                        
