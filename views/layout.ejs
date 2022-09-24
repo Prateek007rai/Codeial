@@ -4,17 +4,19 @@
            <title>
                  <%= title %>
            </title>
+           <base href="/">
            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
            <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-           <link  rel  href="/css/layout.css" type="text/css">
-           <link    href="/css/header.css" type="text/css">
-           <link  href="/css/footer.css" type="text/css">
+           <link rel="stylesheet" href="<%= assetPath('css/layout.css') %>">
+           <link rel="stylesheet" href="<%= assetPath('css/header.css') %>">
+           <link rel="stylesheet" href="<%= assetPath('css/footer.css') %>">
            
 
 
            <%- style -%>                                           <!-- //used to include style tags from other partials -->
-    </head>
+       
+        </head>
     <body>
         <!-- no need of extension -->
         <%- include('_header'); -%>      
